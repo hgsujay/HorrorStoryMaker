@@ -1,11 +1,14 @@
 from openai import OpenAI
 import random
 import os
+import json
+
+config = json.load(open("config.json"))
+open_ai_api_key = config["openai_api_key"]
 
 
 def generate_tts(input_text, speech_file_path, voice):
-    client = OpenAI(api_key="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")
-    # speech_file_path = "speech.mp3"
+    client = OpenAI(api_key=open_ai_api_key)
     response = client.audio.speech.create(
         model="tts-1",
         voice=voice,
