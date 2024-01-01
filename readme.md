@@ -22,12 +22,21 @@ The steps include the following:
 This project runs on Windows with a Nvidia GPU with CUDA installed
 
 Create a virtual environment and install all the requirements
-`
+
+```python
 python -m venv .venv
 pip install -r requirements. txt
-`
+
+```
 Major requirements are Torch, MoviePy, Vosk, OpenAI, Diffusers, ffmpeg, etc
- 
+
+Create a `config.json` file and add your Open AI api key like this.
+```
+{
+    "openai_api_key": "YOUR OPEN AI API KEY HERE"
+}
+```
+
 ## Usage
 
 Open and run `horror_story_maker.py`
