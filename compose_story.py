@@ -13,7 +13,8 @@ def compose_story():
                         messages=[
                                 {"role": "system", "content": "You are a story writer that writes horror stories. " +
                                  "the story will have title and paragraphs in JSON format"},
-                                {"role": "user", "content": "Write a horror story in 3 paragraphs, with a maximum of 220 words"}])
+                                {"role": "user", "content": "You experienced some paranormal activity. Describe it in about 3-4" +
+                                 " paragraphs, with a maximum of 220 words. Keep it casual, dont make it poetic."}])
     json_obj = json.loads(response.choices[0].message.content)
     # print(json_obj)
 

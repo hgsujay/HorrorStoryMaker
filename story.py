@@ -20,12 +20,12 @@ class Paragraph:
 
     def generate_images(self):
         img_file_path = os.path.join(self.path, "images.png")
-        # generate_images_using_sd(self.body, img_file_path)
+        generate_images_using_sd(self.body, img_file_path)
         self.image = img_file_path
 
     def generate_voiceover(self, voice):
         speech_file_path = os.path.join(self.path, "speech.mp3")
-        # generate_tts(self.body, speech_file_path, voice)
+        generate_tts(self.body, speech_file_path, voice)
         self.voiceover = speech_file_path
 
 
@@ -60,5 +60,5 @@ class Story:
     def generate_timestamp(self):
         # Generate a string with format yyyy_mm_dd_hh_mm_ss
         self.id = time.strftime("%Y_%m_%d_%H_%M_%S", time.localtime())
-        self.id = "2023_12_31_16_34_40"
+        # self.id = "2023_12_31_16_34_40"
         print(self.id)
