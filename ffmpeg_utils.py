@@ -1,5 +1,6 @@
 import ffmpeg
 import os
+import shutil
 
 
 def speedup_video(input_video_path, output_video_path, desired_length):
@@ -16,8 +17,10 @@ def speedup_video(input_video_path, output_video_path, desired_length):
         output = ffmpeg.output(joined[0], joined[1], output_video_path)
         ffmpeg.run(output, overwrite_output=True)
     else:
-        output = ffmpeg.output(input_video_path, output_video_path)
-        ffmpeg.run(output, overwrite_output=True)
+        # copy video and rename it
+        # os.system("cp " + input_video_path + " " + output_video_path)
+        shutil.copyfile(input_video_path, output_video_path)
+
 
 
 def add_bgm(input_video, bgm, output_video_path):
