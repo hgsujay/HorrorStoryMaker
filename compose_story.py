@@ -8,19 +8,15 @@ def compose_story():
 
     client = OpenAI(api_key=open_ai_api_key)
     response = client.chat.completions.create(
-                        model="gpt-3.5-turbo-1106",
+                        model=config["openai_model_for_story"],
                         response_format={"type": "json_object"},
                         messages=[
-                                {"role": "system", "content": "You are a story writer that writes horror stories. " +
-                                 "the story will have title and paragraphs in JSON format"},
-                                {"role": "user", "content": "Create a new paranormal story and set it in a random place. " +
-                                 "Make it with a maximum of 200 words. Each sentence should be a new paragraph." +
-                                 " Keep it casual, dont make it poetic."}])
+                                {"role": "system", "content": config["story_composer_context"]},
+                                {"role": "user", "content": config["story_composer_prompt"]}])
     json_obj = json.loads(response.choices[0].message.content)
-    # print(json_obj)
 
     # create a input file with the json content
-    with open("input.txt", "w") as f:
+    with open(config["story_file_name"], "w") as f:
         f.write(json_obj['title'] + "\n\n")
         for para in json_obj['paragraphs']:
             f.write(para + "\n\n")

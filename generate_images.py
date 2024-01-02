@@ -9,8 +9,9 @@ import os
 
 config = json.load(open("config.json"))
 open_ai_api_key = config["openai_api_key"]
+sd_model = config["sd_model"]
 pipe = DiffusionPipeline.from_pretrained(
-                                        "SG161222/RealVisXL_V3.0",
+                                        sd_model,
                                         torch_dtype=torch.float16,
                                         use_safetensors=True,
                                         variant="fp16")
@@ -42,16 +43,14 @@ def generate_images_using_sd(input_text, img_file_path):
                                 {"role": "system", "content": "You are a helpful assistant designed to generate midjourney prompts" +
                                  "You are given a text, and you will generate a midjourney prompt, less than 70 characters."},
                                 {"role": "user", "content": input_text + " horror style, dark, creepy, pixar style"}])
-    # json_obj = json.loads(response.choices[0].message.content)
-    # prompt = json_obj["prompt"] + " horror style, dark, creepy, pixar style"
+
     prompt = response.choices[0].message.content + " horror style, dark, creepy, pixar style"
-    images = pipe(prompt=prompt, height=896, width=512, negative_prompt="worst, bad, text").images[0]
+    images = pipe(prompt=prompt, height=config["sd_base_image_height"], width=config["sd_base_image_width"], negative_prompt="worst, bad, text").images[0]
     images.save(img_file_path)
     # upscale the image using real-esrgan
     os.chdir(os.getcwd())
 
-    cmd = os.getcwd() + "\\RESRGAN\\realesrgan-ncnn-vulkan.exe -i " + img_file_path + " -o " + img_file_path + " -s 4"
-    # os.system("./RESRGAN//realesrgan-ncnn-vulkan.exe --upscale 4 --input " + img_file_path + " --output " + img_file_path + " -s 4")
+    cmd = os.getcwd() + "\\RESRGAN\\realesrgan-ncnn-vulkan.exe -i " + img_file_path + " -o " + img_file_path + " -s " + str(config["resrgan_upscale_factor"])
     os.system(cmd)
 
 
