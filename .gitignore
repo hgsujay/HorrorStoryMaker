@@ -140,3 +140,5 @@ cython_debug/
 config.json
 Outputs/
 input.txt
+client_secret*.json
+credentials.storage

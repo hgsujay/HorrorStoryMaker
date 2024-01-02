@@ -22,7 +22,6 @@ def speedup_video(input_video_path, output_video_path, desired_length):
         shutil.copyfile(input_video_path, output_video_path)
 
 
-
 def add_bgm(input_video, bgm, output_video_path):
     os.system("ffmpeg -y -i " + input_video + " -i " + bgm +
               ' -filter_complex "[1:a]volume=0.2[a1];[0:a][a1]amix=inputs=2:duration=first[a]" -map 0:v -map "[a]" -c:v copy ' +

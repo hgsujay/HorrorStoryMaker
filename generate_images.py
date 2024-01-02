@@ -45,7 +45,8 @@ def generate_images_using_sd(input_text, img_file_path):
                                 {"role": "user", "content": input_text + " horror style, dark, creepy, pixar style"}])
 
     prompt = response.choices[0].message.content + " horror style, dark, creepy, pixar style"
-    images = pipe(prompt=prompt, height=config["sd_base_image_height"], width=config["sd_base_image_width"], negative_prompt="worst, bad, text").images[0]
+    images = pipe(prompt=prompt, height=config["sd_base_image_height"], width=config["sd_base_image_width"],
+                  negative_prompt="worst, bad, text").images[0]
     images.save(img_file_path)
     # upscale the image using real-esrgan
     os.chdir(os.getcwd())
