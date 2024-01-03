@@ -14,10 +14,17 @@ def compose_story():
                                 {"role": "system", "content": config["story_composer_context"]},
                                 {"role": "user", "content": config["story_composer_prompt"]}])
     json_obj = json.loads(response.choices[0].message.content)
-
-    # create a input file with the json content
-    with open(config["story_file_name"], "w") as f:
-        f.write(json_obj['title'] + "\n\n")
-        for para in json_obj['paragraphs']:
-            f.write(para + "\n\n")
+    # write json_obj to a file
+    with open("input.json", "w") as f:
+        json.dump(json_obj, f, indent=4)
         f.close()
+
+    # # create a input file with the json content
+    # with open(config["story_file_name"], "w") as f:
+    #     f.write(json_obj['title'] + "\n\n")
+    #     for para in json_obj['paragraphs']:
+    #         f.write(para['content'] + "\n")
+    #         f.write(para['image_description'] + "\n\n")
+    #     f.close()
+
+# compose_story()

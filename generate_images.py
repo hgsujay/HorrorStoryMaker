@@ -9,6 +9,7 @@ import os
 
 config = json.load(open("config.json"))
 open_ai_api_key = config["openai_api_key"]
+additional_style_tags = config["additional_style_tags"]
 sd_model = config["sd_model"]
 pipe = DiffusionPipeline.from_pretrained(
                                         sd_model,
@@ -34,17 +35,19 @@ def generate_images_open_ai(input_text, img_file_path):
         shutil.copyfileobj(res.raw, out_file)
 
 
-def generate_images_using_sd(input_text, img_file_path):
-    client = OpenAI(api_key=open_ai_api_key)
-    response = client.chat.completions.create(
-                        model="gpt-3.5-turbo-1106",
-                        # response_format={"type": "json_object"},
-                        messages=[
-                                {"role": "system", "content": "You are a helpful assistant designed to generate midjourney prompts" +
-                                 "You are given a text, and you will generate a midjourney prompt, less than 70 characters."},
-                                {"role": "user", "content": input_text + " horror style, dark, creepy, pixar style"}])
+def generate_images_using_sd(image_description, img_file_path):
+    # client = OpenAI(api_key=open_ai_api_key)
+    # response = client.chat.completions.create(
+    #                     model="gpt-3.5-turbo-1106",
+    #                     # response_format={"type": "json_object"},
+    #                     messages=[
+    #                             {"role": "system", "content": "You are a helpful assistant designed to generate Dall-E prompts" +
+    #                              "You are given a context of a story, and text, and you will generate a stable diffusion prompt based on these. The prompt should be specific and less than 70 words. Focus on Nouns and verbs and use simple adjectives"},
+    #                             {"role": "user", "content": input_text + " " + additional_style_tags}])
 
-    prompt = response.choices[0].message.content + " horror style, dark, creepy, pixar style"
+    # prompt = response.choices[0].message.content + " horror style, dark, creepy, pixar style"
+    # print(prompt)
+    prompt = image_description + " " + additional_style_tags
     images = pipe(prompt=prompt, height=config["sd_base_image_height"], width=config["sd_base_image_width"],
                   negative_prompt="worst, bad, text").images[0]
     images.save(img_file_path)
@@ -55,8 +58,5 @@ def generate_images_using_sd(input_text, img_file_path):
     os.system(cmd)
 
 
-# generate_images_using_sd(
-#                         "One night, unable to resist their call, I rose and danced with them." +
-#                         " We moved through the darkness, the shadows enveloping me, caressing me with cold, intangible fingers." +
-#                         " Their whispers grew louder, turning into chants that echoed in the confines of my room.",
-#                         "forest.png")
+# generate_images_using_sd("Turbulence Above the Abyss. Thick, ominous clouds shrouded the airliner as it cruised at 35,000 feet. Passengers were napping or engrossed in their screens, oblivious to the brewing storm outside. Suddenly, the aircraft jerked violently, waking everyone with gasps and nervy expressions.", 
+#                          "A flash of green light illuminated the cabin, casting eerie shadows over the occupants' frightened faces.", "forest.png")

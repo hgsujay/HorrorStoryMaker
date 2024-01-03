@@ -142,3 +142,4 @@ Outputs/
 input.txt
 client_secret*.json
 credentials.storage
+input.json
