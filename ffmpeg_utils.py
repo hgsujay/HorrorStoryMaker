@@ -17,9 +17,17 @@ def speedup_video(input_video_path, output_video_path, desired_length):
         output = ffmpeg.output(joined[0], joined[1], output_video_path)
         ffmpeg.run(output, overwrite_output=True)
     else:
+        speed = 1.2
         # copy video and rename it
         # os.system("cp " + input_video_path + " " + output_video_path)
-        shutil.copyfile(input_video_path, output_video_path)
+        # shutil.copyfile(input_video_path, output_video_path)
+        # speed up video
+        input = ffmpeg.input(input_video_path)
+        a = input.audio.filter('atempo', speed)
+        v = input.video.filter('setpts', f'PTS/{speed}')
+        joined = ffmpeg.concat(v, a, v=1, a=1).node
+        output = ffmpeg.output(joined[0], joined[1], output_video_path)
+        ffmpeg.run(output, overwrite_output=True)
 
 
 def add_bgm(input_video, bgm, output_video_path):
