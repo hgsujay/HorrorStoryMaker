@@ -77,9 +77,8 @@ class Story:
             json_obj = json.load(file)
             self.title = json_obj['title']
             self.paragraphs = []
-            config = json.load(open("config.json"))
             order = 0
-            para_obj = Paragraph(self.title, self.id, order, config["title_image_location"])
+            para_obj = Paragraph(self.title, self.id, order, json_obj['poster']['image_description'])
             self.paragraphs.append(para_obj)
             order += 1
             for para in json_obj['paragraphs']:
@@ -90,7 +89,7 @@ class Story:
     def generate_timestamp(self):
         # Generate a string with format yyyy_mm_dd_hh_mm_ss
         self.id = time.strftime("%Y_%m_%d_%H_%M_%S", time.localtime())
-        # self.id = "2024_01_03_09_47_17"
+        # self.id = "2024_01_08_10_01_38"
         print(self.id)
 
     def regenerate_images(self, order):

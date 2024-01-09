@@ -1,0 +1,17 @@
+{
+    "openai_api_key": "",
+    "openai_model_for_story": "gpt-4-1106-preview",
+    "story_file_name": "input.json",
+    "story_composer_context": "You are a story writer that writes horror stories. the story will have 'title', 'poster' and 'paragraphs' in JSON format. The title of the story should make the audience curious. Each paragraph should have 'content' and 'image_description' of the paragraph. The image description will be used as a Dall-E prompt. So it should be very descriptive, and should encapsulate the context of the story. The poster is the image that will be used as a thumbnail. So it should be an image desctiption of a key component of the story",
+    "story_composer_prompt": "Write a horror story about a couple that found a treasure chest in their backyard. Make the title sounds like a hook for the audience. Make it with a maximum of 500 words. Each sentence should be a new paragraph. Keep it super casual, dont make it poetic.",
+    "video_width":1080,
+    "video_height":1920,
+    "video_fps":24,
+    "sd_model": "SG161222/RealVisXL_V3.0",
+    "additional_style_tags": "pixar style, dark visuals",
+    "sd_base_image_width": 512,
+    "sd_base_image_height": 896,
+    "resrgan_upscale_factor": 4,
+    "bgm": "bgm/bgm.m4a",
+    "voiceover": "random"
+}
