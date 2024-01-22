@@ -16,6 +16,7 @@ pipe = DiffusionPipeline.from_pretrained(
                                         torch_dtype=torch.float16,
                                         use_safetensors=True,
                                         variant="fp16")
+# pipe = DiffusionPipeline.from_pretrained(sd_model)
 pipe.to("cuda")
 
 

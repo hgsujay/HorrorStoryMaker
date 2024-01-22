@@ -51,6 +51,7 @@ class Story:
             paragraph.generate_voiceover(self.narrator)
             paragraph.generate_images()
 
+    # depricated
     def load_story(self, file_path):
         self.generate_timestamp()
         with open(file_path, 'r') as file:

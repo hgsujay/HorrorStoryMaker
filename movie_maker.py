@@ -61,17 +61,3 @@ def make_horror_movie(story, width, height, fps):
     output_path = "Outputs/"+story.id+"/output.mp4"
     final_clip.write_videofile(output_path, fps=fps)
     return output_path
-
-# print(TextClip.list('font'))
-
-
-# image_clip = ImageClip("Outputs/2023_12_31_16_34_40/1/images.png")
-# clip_img = (
-#     image_clip
-#     .resize(zoom_fx)
-#     .set_position(('center', 'center'))
-#     .set_duration(10)
-#     .set_fps(24)
-# )
-# clip = CompositeVideoClip([clip_img], size=(1080, 1920))
-# clip.write_videofile("output.mp4", 24)
