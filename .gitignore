@@ -137,6 +137,7 @@ cython_debug/
 
 # Profiling data
 .prof
+configs/
 config.json
 Outputs/
 input.txt
